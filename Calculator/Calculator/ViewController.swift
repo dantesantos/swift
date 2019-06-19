@@ -62,11 +62,21 @@ class ViewController: UIViewController {
             {
                 currentLabelValue = currentLabelValue + "."
             }
-        case "+":
-        //TODO:Sum operation
-            calculations.firstNumber = Double(currentLabelValue)
-            calculations.operation = "+"
-            readyToFlushLabel = true
+        case "+", "-", "*", "/": //TODO:Sum operation
+            if (calculations.firstNumber == nil){
+                calculations.firstNumber = Double(currentLabelValue)
+                calculations.operation = buttonValue!
+                readyToFlushLabel = true
+            } else {
+                calculations.secondNumber = Double(currentLabelValue)
+                let tempResult = calculations.calculateResult()!
+                currentLabelValue = String(tempResult)
+                calculations.firstNumber = tempResult
+                calculations.secondNumber = nil
+                calculations.operation = buttonValue!
+                readyToFlushLabel = true
+            }
+            
             
 //        case "-":
 //        //TODO:Sum operation
@@ -82,11 +92,15 @@ class ViewController: UIViewController {
                 if (result == floor(result)) {
                     currentLabelValue = String(Int(result))
                 }else{
-                    currentLabelValue = String(result)
+                    currentLabelValue = String(format: "%g", result)
                 }
             } else {
                     currentLabelValue = "0"
             }
+        case "C":
+            currentLabelValue = "0"
+            calculations.reset()
+            readyToFlushLabel = false
         default:
             break
         }

@@ -25,6 +25,12 @@ class Calculations{
                         {
                         case "+":
                             return firstNumber! + secondNumber!
+                        case "-":
+                            return firstNumber! - secondNumber!
+                        case "*":
+                            return firstNumber! * secondNumber!
+                        case "/":
+                            return firstNumber! / secondNumber!
                         default:
                             return nil
                         }
@@ -37,5 +43,11 @@ class Calculations{
             } else {
                 return 0.0
         }
+    }
+    
+    func reset(){
+        firstNumber = nil
+        secondNumber = nil
+        operation = nil
     }
 }
