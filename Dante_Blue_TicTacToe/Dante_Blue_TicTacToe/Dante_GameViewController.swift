@@ -12,6 +12,7 @@ class Dante_GameViewController: UIViewController {
     
     //MARK:Properties
     var gameModel = Dante_GameModel()
+    var acceptNewTouches = true
     
     //MARK: Outlets
     @IBOutlet weak var gameStatusLabel: UILabel!
@@ -29,13 +30,14 @@ class Dante_GameViewController: UIViewController {
         print("button pressed")
         print(sender.tag)
         
-        if(sender.currentTitle == nil){
+        if(sender.currentTitle == nil) && acceptNewTouches{
             sender.setTitle(gameModel.whoseTurnIsIt, for: .normal)
             gameModel.playMove(tag: sender.tag)
             if (gameModel.checkIfGameIsOver()){
-                gameStatusLabel.text = gameModel.whoseTurnIsIt + "'s Turn"
-            } else {
                 gameStatusLabel.text = gameModel.gameResult
+                acceptNewTouches = false
+            } else {
+                gameStatusLabel.text = gameModel.whoseTurnIsIt + "'s Turn"
             }
         } else {
             

@@ -85,7 +85,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date Played" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cIx-DS-Rj4">
-                                            <rect key="frame" x="302" y="32" width="92" height="21"/>
+                                            <rect key="frame" x="219" y="32" width="184" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -97,6 +97,7 @@
                                     <outlet property="date_played" destination="cIx-DS-Rj4" id="FNL-CW-QJS"/>
                                     <outlet property="who_won" destination="Wti-Kc-GNy" id="Dpy-x9-yMJ"/>
                                     <outlet property="win_loss_image" destination="7aH-Dz-bgO" id="Abl-Vl-W58"/>
+                                    <segue destination="Toj-Hg-C1L" kind="show" identifier="pastGame" id="xNH-eJ-7JY"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -109,14 +110,14 @@
                         <barButtonItem key="backBarButtonItem" title="X's Story" id="cwi-iI-E5T"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="l3b-Ed-PTU">
                             <connections>
-                                <segue destination="Toj-Hg-C1L" kind="show" id="MPk-dV-jLl"/>
+                                <segue destination="Toj-Hg-C1L" kind="show" identifier="newGame" id="MPk-dV-jLl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="udP-Oj-lRZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1510" y="138"/>
+            <point key="canvasLocation" x="1508.6956521739132" y="137.94642857142856"/>
         </scene>
         <!--Dante Game View Controller-->
         <scene sceneID="yqc-Tg-9ii">
@@ -279,4 +280,7 @@
         <image name="Blue_Grid" width="160" height="160"/>
         <image name="Blue_Win" width="64" height="64"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="MPk-dV-jLl"/>
+    </inferredMetricsTieBreakers>
 </document>

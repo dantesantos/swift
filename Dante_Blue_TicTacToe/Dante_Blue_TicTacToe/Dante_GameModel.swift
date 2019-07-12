@@ -16,6 +16,8 @@ class Dante_GameModel{
     var gameResult = ""
     var movesPlayed = Array(repeating: "", count: 9)
     
+    var orderOfMoves = [Int]()
+    
     let winningCombinations = [
     [1, 2, 3],
     [4, 5, 6],
@@ -30,6 +32,7 @@ class Dante_GameModel{
     //MARK: Methods
     func playMove(tag: Int){
         
+        orderOfMoves.append(tag)
         numberOfMovesPlayed += 1
         
         movesPlayed[tag - 1] = whoseTurnIsIt
@@ -47,7 +50,7 @@ class Dante_GameModel{
         if(numberOfMovesPlayed < 5){
             return false
         }
-        for i in 0..<9 {
+        for i in 0..<8 {
             let winningCombo = winningCombinations[i]
             
             if (movesPlayed[winningCombo[0] - 1] == checkFor
@@ -56,15 +59,33 @@ class Dante_GameModel{
                 //GAME IS OVER
                 //checkFor has Won
                 gameResult = checkFor + " Won!"
+                saveGame()
                 return true
             }
         }
         
         if (numberOfMovesPlayed == 9){
             gameResult = "Draw"
+            saveGame()
             return true
         }
         return false
+    }
+    
+    func saveGame(){
+        var numberOfGamesPlayed = UserDefaults.standard.integer(forKey: "numberOfGamesPlayed")
+        
+        numberOfGamesPlayed += 1
+        
+        UserDefaults.standard.set(numberOfGamesPlayed, forKey: "numberOfGamesPlayed")
+        
+        UserDefaults.standard.set(gameResult, forKey: "Result_" + String(numberOfGamesPlayed))
+        
+        let currentTime = Date()
+        
+        UserDefaults.standard.set(currentTime, forKey: "TimeStamp_" + String(numberOfGamesPlayed))
+    
+        UserDefaults.standard.set(orderOfMoves, forKey: "OrderOfMoves_" + String(numberOfGamesPlayed))
     }
     
 }

@@ -29,7 +29,8 @@ class Dante_TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        let numberOfGamesPlayed = UserDefaults.standard.integer(forKey: "numberOfGamesPlayed")
+        return numberOfGamesPlayed
     }
 
     
@@ -37,10 +38,30 @@ class Dante_TableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "dante_table_cell", for: indexPath) as! Dante_TableViewCell
 
         // Configure the cell...
-        cell.who_won.text = "X Won!"
-        cell.date_played.text = "Today"
-        cell.win_loss_image.image = UIImage(named: "Blue_Win")
         
+        let numberOfGamesPlayed = UserDefaults.standard.integer(forKey: "numberOfGamesPlayed")
+        
+        let thisCellGameIndex = numberOfGamesPlayed - indexPath.row
+        
+        let whoWon = UserDefaults.standard.string(forKey: "Result_" + String(thisCellGameIndex))
+        
+        let timeStamp = UserDefaults.standard.object(forKey: "TimeStamp_" + String(thisCellGameIndex)) as! Date
+
+        cell.who_won.text = whoWon
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        
+        cell.date_played.text = dateFormatter.string(from: timeStamp)
+        
+        if(whoWon == "X Won!"){
+            cell.win_loss_image.image = UIImage(named: "Blue_Win")
+        } else {
+            cell.win_loss_image.image = UIImage(named: "Blue_Loss")
+        }
+        
+        cell.orderOfMoves = (UserDefaults.standard.array(forKey: "OrderOfMoves_" + String(thisCellGameIndex)) as! [Int])
         return cell
     }
  
@@ -80,14 +101,25 @@ class Dante_TableViewController: UITableViewController {
     }
     */
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        print("Segue identifier is \(segue.identifier!)")
+        
+        if(segue.identifier == "newGame"){
+            return
+        }
+        
+        //prepare to send past game data
+        let thisCell = sender as! Dante_TableViewCell
+        
+        //thisCell.
     }
-    */
 
+    
 }

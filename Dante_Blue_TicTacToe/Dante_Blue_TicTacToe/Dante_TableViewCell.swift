@@ -14,6 +14,7 @@ class Dante_TableViewCell: UITableViewCell {
     @IBOutlet weak var who_won: UILabel!    
     @IBOutlet weak var date_played: UILabel!
     
+    var orderOfMoves : [Int]?
 
     override func awakeFromNib() {
         super.awakeFromNib()
