@@ -20,6 +20,10 @@ class Dante_TableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -45,15 +49,17 @@ class Dante_TableViewController: UITableViewController {
         
         let whoWon = UserDefaults.standard.string(forKey: "Result_" + String(thisCellGameIndex))
         
-        let timeStamp = UserDefaults.standard.object(forKey: "TimeStamp_" + String(thisCellGameIndex)) as! Date
+        let timeStamp = UserDefaults.standard.double(forKey: "TimeStamp_" + String(thisCellGameIndex))
 
+        let gameDate = Date(timeIntervalSince1970: timeStamp)
+        
         cell.who_won.text = whoWon
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         
-        cell.date_played.text = dateFormatter.string(from: timeStamp)
+        cell.date_played.text = dateFormatter.string(from: gameDate)
         
         if(whoWon == "X Won!"){
             cell.win_loss_image.image = UIImage(named: "Blue_Win")
@@ -117,8 +123,12 @@ class Dante_TableViewController: UITableViewController {
         
         //prepare to send past game data
         let thisCell = sender as! Dante_TableViewCell
-        
+        print ("check cell data")
         //thisCell.
+        let destinationViewController = segue.destination as! Dante_GameViewController
+        
+        destinationViewController.isPastGame = true
+        destinationViewController.orderOfMoves = thisCell.orderOfMoves
     }
 
     

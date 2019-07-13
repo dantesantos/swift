@@ -14,6 +14,9 @@ class Dante_GameModel{
     var numberOfMovesPlayed = 0
     var checkFor = "O"
     var gameResult = ""
+    
+    var isPastGame = false
+    
     var movesPlayed = Array(repeating: "", count: 9)
     
     var orderOfMoves = [Int]()
@@ -73,6 +76,11 @@ class Dante_GameModel{
     }
     
     func saveGame(){
+        //save the game information
+        if(isPastGame){
+            return
+        }
+        
         var numberOfGamesPlayed = UserDefaults.standard.integer(forKey: "numberOfGamesPlayed")
         
         numberOfGamesPlayed += 1
@@ -81,7 +89,7 @@ class Dante_GameModel{
         
         UserDefaults.standard.set(gameResult, forKey: "Result_" + String(numberOfGamesPlayed))
         
-        let currentTime = Date()
+        let currentTime = Date().timeIntervalSince1970
         
         UserDefaults.standard.set(currentTime, forKey: "TimeStamp_" + String(numberOfGamesPlayed))
     
